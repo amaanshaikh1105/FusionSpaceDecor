@@ -1,0 +1,24 @@
+# Personal reference material (resume, portfolio PDFs) - not for git or deployment
+reference/*
+!reference/.gitkeep
+
+# Firebase local cache / logs
+.firebase/
+firebase-debug.log
+firestore-debug.log
+ui-debug.log
+
+# Secrets - never commit these
+.env
+.env.*
+serviceAccountKey.json
+*-firebase-adminsdk-*.json
+
+# OS / editor junk
+.DS_Store
+Thumbs.db
+.vscode/*
+!.vscode/extensions.json
+
+# Node (only if we ever add tooling)
+node_modules/

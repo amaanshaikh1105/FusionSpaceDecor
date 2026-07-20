@@ -1,0 +1,67 @@
+/* Fusion Space Decor — shared styles
+   Brand tokens from CLAUDE.md §2. Every page loads this file. */
+
+:root {
+  --ink: #14110F;
+  --charcoal: #1E1A17;
+  --gold: #C6A15B;
+  --gold-soft: #E4CE9A;
+  --bone: #F5F1EA;
+  --stone: #A79B87;
+
+  --font-display: "Cinzel", serif;
+  --font-accent: "Cormorant Garamond", serif;
+  --font-body: "Outfit", sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+body {
+  margin: 0;
+  background: var(--ink);
+  color: var(--bone);
+  font-family: var(--font-body);
+  line-height: 1.5;
+}
+
+a { color: var(--gold); }
+
+:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+}
+
+h1, h2, h3, .eyebrow {
+  font-family: var(--font-display);
+  letter-spacing: 0.04em;
+}
+
+.accent {
+  font-family: var(--font-accent);
+  font-style: italic;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Layout placeholders injected by js/layout.js */
+header[data-site-header],
+footer[data-site-footer] {
+  padding: 1.5rem;
+}

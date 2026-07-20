@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin | Fusion Space Decor</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="icon" href="/logo.png">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <!-- Password-protected content manager: Firebase Auth login, then CRUD for
+       projects, image upload to Storage, edit site copy, list enquiries.
+       Built in Build order step 5. Never ships without an auth check in js/admin.js. -->
+  <div id="login-view">
+    <h1>Admin Login</h1>
+    <form id="login-form">
+      <label for="admin-email">Email</label>
+      <input id="admin-email" name="email" type="email" required>
+      <label for="admin-password">Password</label>
+      <input id="admin-password" name="password" type="password" required>
+      <button type="submit">Log in</button>
+    </form>
+  </div>
+
+  <div id="admin-view" hidden>
+    <!-- Project list/editor, site copy editor, enquiries list -->
+  </div>
+
+  <script type="module" src="/js/admin.js"></script>
+</body>
+</html>

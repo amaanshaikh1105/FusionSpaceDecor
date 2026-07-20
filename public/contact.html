@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact | Fusion Space Decor</title>
+  <meta name="description" content="Get in touch with Fusion Space Decor for your next interior or civil works project.">
+  <link rel="icon" href="/logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=Cormorant+Garamond:ital@1&family=Outfit:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <div id="site-header"></div>
+
+  <main>
+    <h1>Contact</h1>
+    <form id="enquiry-form">
+      <label for="name">Name</label>
+      <input id="name" name="name" type="text" required>
+
+      <label for="email">Email</label>
+      <input id="email" name="email" type="email" required>
+
+      <label for="phone">Phone</label>
+      <input id="phone" name="phone" type="tel">
+
+      <label for="message">Message</label>
+      <textarea id="message" name="message" required></textarea>
+
+      <button type="submit">Send enquiry</button>
+    </form>
+    <!-- Submits to the `enquiries` Firestore collection via js/contact.js (Build order step 4) -->
+
+    <address>
+      <!-- Populated from siteContent/contact: email, phone, address, map -->
+    </address>
+  </main>
+
+  <div id="site-footer"></div>
+
+  <script src="/js/layout.js"></script>
+  <script type="module" src="/js/contact.js"></script>
+</body>
+</html>

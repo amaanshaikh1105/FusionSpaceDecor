@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Projects | Fusion Space Decor</title>
+  <meta name="description" content="A gallery of interior, commercial, institutional, retail and hospitality projects by Fusion Space Decor.">
+  <link rel="icon" href="/logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=Cormorant+Garamond:ital@1&family=Outfit:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <div id="site-header"></div>
+
+  <main>
+    <h1>Projects</h1>
+    <div id="category-filter" role="tablist" aria-label="Filter by category"></div>
+    <div id="projects-grid"></div>
+    <!-- Populated from the `projects` Firestore collection via js/projects.js (Build order step 3) -->
+  </main>
+
+  <div id="site-footer"></div>
+
+  <script src="/js/layout.js"></script>
+  <script type="module" src="/js/projects.js"></script>
+</body>
+</html>
