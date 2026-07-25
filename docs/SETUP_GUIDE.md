@@ -168,7 +168,7 @@ CLAUDE.md §8 (public can read published projects/site copy and submit enquiries
 only a logged-in admin can write). Push them to Firebase:
 
 ```
-firebase deploy --only firestore:rules,storage:rules
+firebase deploy --only firestore:rules,storage
 ```
 
 Rules are the *only* thing deployed to Firebase — the site itself goes to GitHub Pages
@@ -218,7 +218,9 @@ For every future change (new page section, new feature, style tweak):
    git push
    ```
    The push publishes the site by itself. Only if `firestore.rules` or `storage.rules`
-   changed, also run `firebase deploy --only firestore:rules,storage:rules`.
+   changed, also run `firebase deploy --only firestore:rules,storage`.
+   (For Storage the flag is `storage`, **not** `storage:rules` — the CLI reads
+   `storage:something` as a bucket target name and fails with a confusing error.)
 
 Adding new projects, editing copy, or reading enquiries day-to-day happens through
 `/admin.html` once Build order step 5 (in CLAUDE.md) is complete — no git or
