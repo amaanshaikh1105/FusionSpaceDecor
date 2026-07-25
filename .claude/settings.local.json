@@ -3,7 +3,8 @@
     "allow": [
       "Bash(firebase --version)",
       "Bash(npm list *)",
-      "PowerShell(git add -A)"
+      "PowerShell(git add -A)",
+      "PowerShell(git config --get credential.helper; \"---\"; try { \\(Get-Command git-credential-manager -ErrorAction Stop\\).Source } catch { \"GCM not on PATH\" }; \"---\"; git config --global user.name; git config --global user.email)"
     ]
   }
 }

@@ -77,11 +77,14 @@ files, and Firebase's local cache/log files.
 
 ## Part 3 — Firebase (the backend)
 
-Firebase was chosen over a self-managed server (like OVH) because: no server to
-patch or secure yourself, a generous free tier that comfortably covers a single
-business's traffic, and Hosting + Firestore + Storage + Auth all live in one place
-with one login — the right fit for a first full-stack project. If the site ever
-outgrows it, moving to a bigger host later is possible, but not needed at this stage.
+Firebase was chosen over a self-managed server because: no server to patch or secure
+yourself, a free tier that comfortably covers a single business's traffic, and
+Firestore + Storage + Auth all live in one place with one login.
+
+> **Note on hosting.** The live site is served by **GitHub Pages**, not Firebase
+> Hosting — see Part 2. Firebase is used only for the *data*: project records, images,
+> the admin login and enquiries. The two work together fine; the browser loads the
+> pages from GitHub and then talks to Firebase for the content.
 
 ### 3.1 Create the Firebase project
 
@@ -101,14 +104,47 @@ outgrows it, moving to a bigger host later is possible, but not needed at this s
 
 Still in the Firebase console, left sidebar:
 
-- **Build → Firestore Database** → Create database → start in **production mode** →
-  pick a location close to your users (e.g. `asia-south1` for Mumbai).
-- **Build → Storage** → Get started → production mode → same region.
-- **Build → Authentication** → Get started → **Sign-in method** tab → enable
-  **Email/Password**. Then in the **Users** tab, add one user: the owner's email +
-  a password — this is the login for `/admin.html`. Only add accounts you trust with
-  full content control; anyone who owns a Firestore/Storage write in `firestore.rules`
-  can edit/delete anything.
+**Firestore** (free — stores all text and project records)
+**Build → Firestore Database** → Create database → start in **production mode** →
+location **`asia-south1` (Mumbai)**. *Location cannot be changed later.*
+
+**Authentication** (free — the admin login)
+**Build → Authentication** → Get started → **Sign-in method** tab → enable
+**Email/Password**. Then **Users** tab → **Add user**: the owner's email + a strong
+password. This is the login for `/admin.html`. Only add accounts you trust with full
+content control — anyone with a write permission in `firestore.rules` can edit or
+delete anything.
+
+Then **Authentication → Settings → Authorized domains → Add domain** and add
+`amaanshaikh1105.github.io`. Email/password login works without this, but password
+reset emails and any future Google sign-in need it, and it costs nothing to do now.
+
+**Storage** (requires a card — stores project images)
+**Build → Storage** → Get started. Firebase will require an upgrade to the
+**Blaze (pay-as-you-go)** plan and ask for a card. Same region, `asia-south1`.
+
+Blaze includes a monthly no-cost allowance (several GB of storage and transfer) that a
+portfolio site of this size stays well inside — but it *is* a metered plan, so set a
+guard immediately after upgrading:
+
+> **Set a budget alert.** Firebase console → the **gear icon → Usage and billing →
+> Details & settings → Modify budget alerts**. Set the budget to a small amount you'd
+> notice (e.g. ₹500) with email alerts at 50% / 90% / 100%.
+>
+> A budget alert **emails you** — it does not cap spending or shut anything off. For a
+> hard stop you'd set a billing-account budget with an automated cap in the Google
+> Cloud console. For this site's traffic the alert is enough warning.
+
+### 3.2b Keeping the image bill at zero
+
+The one thing that actually runs up cost on an image-heavy site is **serving large
+files repeatedly**. Two habits prevent it:
+
+- Compress and resize every image **before** upload — max ~1600px wide, WebP where
+  possible (CLAUDE.md §8). A 4 MB camera photo becomes ~200 KB with no visible loss.
+- Never upload the original camera file straight from a phone.
+
+The admin panel resizes images in the browser before upload for exactly this reason.
 
 ### 3.3 Install the Firebase CLI and connect this folder
 
@@ -135,24 +171,36 @@ only a logged-in admin can write). Push them to Firebase:
 firebase deploy --only firestore:rules,storage:rules
 ```
 
+Rules are the *only* thing deployed to Firebase — the site itself goes to GitHub Pages
+(Part 2). Re-run the command above any time `firestore.rules` or `storage.rules`
+changes; nothing else needs it.
+
 ### 3.5 Deploy the site
 
+Nothing to do — this is automatic. Pushing to `main` triggers
+`.github/workflows/deploy.yml`, which publishes `public/` to GitHub Pages:
+
 ```
-firebase deploy --only hosting
+git add .
+git commit -m "describe the change"
+git push
 ```
 
-Firebase prints a live URL like `https://fusion-space-decor.web.app` — that's the
-site, live on the internet.
+Live at **https://amaanshaikh1105.github.io/FusionSpaceDecor/** about a minute later.
+Progress and failures show under the repo's **Actions** tab.
 
 ### 3.6 Connect your custom domain
 
-In the Firebase console: **Build → Hosting → Add custom domain** → enter your
-purchased domain → Firebase gives you DNS records (usually a couple of `A` records,
-or a `TXT` record for verification). Log into wherever you bought the domain
-(GoDaddy, Namecheap, Google Domains, etc.), find **DNS settings**, and add exactly
-the records Firebase shows you. DNS changes can take anywhere from a few minutes to
-24 hours to take effect — Firebase will show "Connected" once it's done and will
-auto-provision an SSL certificate (the padlock/https) for you.
+Once you've bought a domain:
+
+1. Repo → **Settings → Pages → Custom domain** → enter the domain → **Save**.
+2. GitHub shows you the DNS records to add. Log into wherever you bought the domain,
+   find **DNS settings**, and add exactly what GitHub shows — usually four `A` records
+   for the root domain, or one `CNAME` record for a `www.` subdomain.
+3. Back in Settings → Pages, tick **Enforce HTTPS** once it becomes available.
+
+DNS can take anywhere from a few minutes to 24 hours. GitHub also writes a `CNAME`
+file into the repo when you save the domain — leave it there, the deploy needs it.
 
 ---
 
@@ -168,10 +216,9 @@ For every future change (new page section, new feature, style tweak):
    git add .
    git commit -m "describe the change"
    git push
-   firebase deploy --only hosting
    ```
-   (only add `--only firestore:rules` / `--only storage:rules` to that last command
-   if `firestore.rules` or `storage.rules` changed).
+   The push publishes the site by itself. Only if `firestore.rules` or `storage.rules`
+   changed, also run `firebase deploy --only firestore:rules,storage:rules`.
 
 Adding new projects, editing copy, or reading enquiries day-to-day happens through
 `/admin.html` once Build order step 5 (in CLAUDE.md) is complete — no git or
@@ -183,9 +230,14 @@ terminal needed for that part at all.
 
 Claude Code cannot do these for you; they need your own accounts/decisions:
 
-- [ ] Create the GitHub account + repository, and authenticate `git push` once.
-- [ ] Create the Firebase project and enable Firestore / Storage / Authentication.
+- [x] Create the GitHub account + repository, and authenticate `git push` once.
+- [x] Turn on GitHub Pages (Settings → Pages → Source: GitHub Actions).
+- [ ] Create the Firebase project and enable Firestore / Authentication.
+- [ ] Upgrade to the Blaze plan to enable Storage, **and set a budget alert**.
 - [ ] Add the admin login (email + password) in Firebase Authentication.
+- [ ] Add `amaanshaikh1105.github.io` to Authentication → Settings → Authorized domains.
+- [ ] Paste the `firebaseConfig` values into `public/js/firebase.js` (or hand them to
+      Claude Code to fill in) and the Project ID into `.firebaserc`.
 - [ ] Run `firebase login` once on your machine.
 - [ ] Add the DNS records at your domain registrar to connect the custom domain.
 
