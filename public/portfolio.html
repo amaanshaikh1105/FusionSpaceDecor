@@ -228,6 +228,9 @@ nav.main .btn{padding:.62em 1.3em;color:var(--on-dark)}
 .grid-gal .frame{grid-column:span 4}
 .grid-gal .frame.big{grid-column:span 6}
 .grid-gal .frame.sq{grid-column:span 4;aspect-ratio:1/1}
+/* live project tiles: the photo fills the frame, caption sits over it */
+.grid-gal .frame img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.gal .filters button.chip{background:none;font-family:inherit;font-weight:300;cursor:pointer}
 
 /* ---------- sketches grid (square boxes) ---------- */
 .sketch-sec{background:var(--bone-2);color:var(--on-light);padding:clamp(56px,7vw,100px) var(--pad)}
@@ -432,5 +435,8 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 </script>
+
+<!-- Replaces the placeholder tiles above with live projects, if any exist. -->
+<script type="module" src="js/projects.js"></script>
 </body>
 </html>
