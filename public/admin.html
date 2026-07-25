@@ -1,32 +1,268 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin | Fusion Space Decor</title>
-  <meta name="robots" content="noindex, nofollow">
-  <link rel="icon" href="logo.png">
-  <link rel="stylesheet" href="css/style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin | Fusion Space Decor</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@200;300;400;500&family=Marcellus&display=swap" rel="stylesheet" />
+<style>
+/* Admin panel — matches the public site's black / copper finish.
+   Deliberately plainer than the marketing pages: this is a work tool. */
+:root{
+  --black:#0C0C0D; --coal:#141416; --coal-2:#1C1C1F;
+  --on-dark:#EFEDEA; --mute:#98979A;
+  --copper:#B87333; --copper-lt:#DFA470;
+  --line:rgba(239,237,234,.12); --line-c:rgba(184,115,51,.30);
+  --ok:#5FA777; --bad:#C4564B;
+  --f-disp:'Marcellus',serif; --f-body:'Jost',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--f-body);font-weight:300;background:var(--black);color:var(--on-dark);line-height:1.6}
+h1,h2,h3{font-family:var(--f-disp);font-weight:400;letter-spacing:.02em}
+a{color:var(--copper-lt)}
+img{max-width:100%;display:block}
+:focus-visible{outline:2px solid var(--copper);outline-offset:2px}
+
+.bar{display:flex;align-items:center;justify-content:space-between;gap:16px;
+     padding:16px clamp(16px,4vw,40px);border-bottom:1px solid var(--line-c);background:var(--coal)}
+.bar .name{font-family:var(--f-disp);font-size:1.05rem;letter-spacing:.14em}
+.bar .who{font-size:.8rem;color:var(--mute)}
+main{max-width:1100px;margin:0 auto;padding:clamp(20px,4vw,44px) clamp(16px,4vw,40px)}
+
+/* forms */
+label{display:block;font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;color:var(--copper);margin-bottom:6px}
+input,select,textarea{width:100%;background:var(--black);border:1px solid var(--line);color:var(--on-dark);
+  padding:12px 13px;font-family:var(--f-body);font-weight:300;font-size:.95rem}
+input:focus,select:focus,textarea:focus{outline:0;border-color:var(--copper)}
+textarea{resize:vertical;min-height:120px}
+.field{margin-bottom:16px}
+.row{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:16px}
+.check{display:flex;align-items:center;gap:10px;font-size:.92rem}
+.check input{width:auto}
+.check label{margin:0;letter-spacing:0;text-transform:none;font-size:.92rem;color:var(--on-dark)}
+
+button{font-family:var(--f-body);font-size:.82rem;letter-spacing:.1em;text-transform:uppercase;
+  padding:.85em 1.6em;border:1px solid var(--copper);background:transparent;color:var(--on-dark);cursor:pointer;
+  transition:background .3s,color .3s}
+button:hover:not(:disabled){background:var(--copper);color:#150B03}
+button:disabled{opacity:.45;cursor:not-allowed}
+button.solid{background:var(--copper);color:#150B03}
+button.ghost{border-color:var(--line);color:var(--mute)}
+button.ghost:hover:not(:disabled){background:var(--coal-2);color:var(--on-dark)}
+button.danger{border-color:var(--bad);color:var(--bad)}
+button.danger:hover:not(:disabled){background:var(--bad);color:#fff}
+button.sm{padding:.5em 1em;font-size:.72rem}
+.actions{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+
+/* login */
+.login{max-width:380px;margin:14vh auto;padding:0 20px}
+.login h1{font-size:1.6rem;margin-bottom:.2em}
+.login p.sub{color:var(--mute);font-size:.9rem;margin-bottom:1.8em}
+
+/* messages */
+.msg{padding:12px 14px;border-left:2px solid var(--copper);background:var(--coal);font-size:.9rem;margin-bottom:16px}
+.msg.err{border-color:var(--bad)}
+.msg.ok{border-color:var(--ok)}
+[hidden]{display:none!important}
+
+/* tabs */
+.tabs{display:flex;gap:2px;margin-bottom:26px;border-bottom:1px solid var(--line)}
+.tabs button{border:0;border-bottom:2px solid transparent;background:none;color:var(--mute);padding:.8em 1.2em}
+.tabs button:hover:not(:disabled){background:var(--coal);color:var(--on-dark)}
+.tabs button[aria-selected="true"]{color:var(--copper-lt);border-bottom-color:var(--copper);background:none}
+
+/* project list */
+.plist{display:flex;flex-direction:column;gap:1px;background:var(--line)}
+.pitem{background:var(--coal);padding:14px 16px;display:grid;
+       grid-template-columns:64px 1fr auto;gap:16px;align-items:center}
+.pitem .thumb{width:64px;height:48px;object-fit:cover;background:var(--coal-2);border:1px solid var(--line)}
+.pitem .t{font-family:var(--f-disp);font-size:1.05rem}
+.pitem .m{font-size:.78rem;color:var(--mute)}
+.pill{display:inline-block;font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;
+      padding:.25em .7em;border:1px solid var(--line);color:var(--mute);margin-left:8px}
+.pill.live{border-color:var(--ok);color:var(--ok)}
+.pill.draft{border-color:var(--mute)}
+
+/* image manager */
+.drop{border:1px dashed var(--line-c);padding:26px;text-align:center;color:var(--mute);
+      font-size:.9rem;cursor:pointer;transition:background .25s,border-color .25s}
+.drop:hover,.drop.over{background:var(--coal);border-color:var(--copper)}
+.shelf{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px;margin-top:14px}
+.shot{position:relative;aspect-ratio:4/3;border:1px solid var(--line);overflow:hidden;background:var(--coal-2)}
+.shot img{width:100%;height:100%;object-fit:cover}
+.shot .x{position:absolute;top:5px;right:5px;background:rgba(12,12,13,.85);border:1px solid var(--line);
+         color:var(--on-dark);width:26px;height:26px;padding:0;font-size:.9rem;line-height:1;letter-spacing:0}
+.shot .cover-tag{position:absolute;left:5px;bottom:5px;background:var(--copper);color:#150B03;
+         font-size:.56rem;letter-spacing:.14em;text-transform:uppercase;padding:.3em .6em}
+.shot .setcover{position:absolute;left:5px;bottom:5px;font-size:.56rem;padding:.35em .7em;letter-spacing:.12em}
+.prog{height:2px;background:var(--coal-2);margin-top:10px;overflow:hidden}
+.prog i{display:block;height:100%;width:0;background:var(--copper);transition:width .2s}
+
+/* enquiries */
+.enq{background:var(--coal);border-left:2px solid var(--copper);padding:14px 16px;margin-bottom:1px}
+.enq .h{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:baseline}
+.enq .n{font-family:var(--f-disp);font-size:1.05rem}
+.enq .d{font-size:.74rem;color:var(--mute)}
+.enq .c{font-size:.84rem;color:var(--mute);margin-top:2px}
+.enq .body{margin-top:8px;font-size:.93rem;white-space:pre-wrap}
+
+.empty{color:var(--mute);font-size:.92rem;padding:26px 0}
+.hint{font-size:.78rem;color:var(--mute);margin-top:6px}
+@media(max-width:620px){
+  .pitem{grid-template-columns:48px 1fr;row-gap:10px}
+  .pitem .actions{grid-column:1/-1}
+}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
 </head>
 <body>
-  <!-- Password-protected content manager: Firebase Auth login, then CRUD for
-       projects, image upload to Storage, edit site copy, list enquiries.
-       Built in Build order step 5. Never ships without an auth check in js/admin.js. -->
-  <div id="login-view">
-    <h1>Admin Login</h1>
-    <form id="login-form">
+
+<!-- ============ LOGIN ============ -->
+<section id="login-view" class="login" hidden>
+  <h1>Fusion <span style="color:var(--copper-lt)">Space</span> Decor</h1>
+  <p class="sub">Content manager — sign in to continue.</p>
+  <div id="login-msg" class="msg err" hidden></div>
+  <form id="login-form">
+    <div class="field">
       <label for="admin-email">Email</label>
-      <input id="admin-email" name="email" type="email" required>
+      <input id="admin-email" name="email" type="email" autocomplete="username" required>
+    </div>
+    <div class="field">
       <label for="admin-password">Password</label>
-      <input id="admin-password" name="password" type="password" required>
-      <button type="submit">Log in</button>
-    </form>
+      <input id="admin-password" name="password" type="password" autocomplete="current-password" required>
+    </div>
+    <button type="submit" class="solid" id="login-btn">Log in</button>
+  </form>
+</section>
+
+<!-- ============ ADMIN ============ -->
+<div id="admin-view" hidden>
+  <div class="bar">
+    <span class="name">FUSION <span style="color:var(--copper-lt)">SPACE</span> DECOR</span>
+    <div class="actions">
+      <span class="who" id="who"></span>
+      <button class="ghost sm" id="logout-btn">Log out</button>
+    </div>
   </div>
 
-  <div id="admin-view" hidden>
-    <!-- Project list/editor, site copy editor, enquiries list -->
-  </div>
+  <main>
+    <div class="tabs" role="tablist">
+      <button role="tab" aria-selected="true"  data-tab="projects">Projects</button>
+      <button role="tab" aria-selected="false" data-tab="enquiries">Enquiries</button>
+    </div>
 
-  <script type="module" src="js/admin.js"></script>
+    <!-- ---- projects tab ---- -->
+    <section id="tab-projects">
+      <div id="list-panel">
+        <div class="actions" style="margin-bottom:20px">
+          <button class="solid" id="new-btn">+ New project</button>
+          <button class="ghost sm" id="refresh-btn">Refresh</button>
+        </div>
+        <div id="list-msg" class="msg" hidden></div>
+        <div class="plist" id="plist"></div>
+        <p class="empty" id="plist-empty" hidden>No projects yet. Create your first one.</p>
+      </div>
+
+      <div id="edit-panel" hidden>
+        <div class="actions" style="margin-bottom:20px">
+          <button class="ghost sm" id="back-btn">← Back to list</button>
+        </div>
+        <h2 id="edit-title" style="margin-bottom:20px">New project</h2>
+        <div id="edit-msg" class="msg" hidden></div>
+
+        <form id="project-form">
+          <div class="field">
+            <label for="f-title">Title</label>
+            <input id="f-title" required placeholder="Show Villa, Kalpataru Amoda">
+          </div>
+
+          <div class="row">
+            <div class="field">
+              <label for="f-category">Category</label>
+              <select id="f-category">
+                <option>Residential</option><option>Commercial</option>
+                <option>Institutional</option><option>Retail</option><option>Hospitality</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="f-location">Location</label>
+              <input id="f-location" placeholder="Lonavala">
+            </div>
+            <div class="field">
+              <label for="f-client">Client</label>
+              <input id="f-client" placeholder="Kalpataru Limited">
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="field">
+              <label for="f-area">Area (sq ft)</label>
+              <input id="f-area" type="number" min="0" step="1" placeholder="3300">
+            </div>
+            <div class="field">
+              <label for="f-year">Year</label>
+              <input id="f-year" type="number" min="1990" max="2100" step="1" placeholder="2016">
+            </div>
+            <div class="field">
+              <label for="f-order">Sort order</label>
+              <input id="f-order" type="number" step="1" value="0">
+              <p class="hint">Lower numbers appear first.</p>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="f-description">Description</label>
+            <textarea id="f-description" placeholder="What the project involved, the brief, the finish…"></textarea>
+          </div>
+
+          <div class="field">
+            <label>Images</label>
+            <div class="drop" id="drop" tabindex="0" role="button"
+                 aria-label="Add images — click or drop files here">
+              Click to choose images, or drag them here.<br>
+              <span style="font-size:.8rem">Resized to 1600px and converted to WebP in your browser before upload.</span>
+            </div>
+            <input type="file" id="file-input" accept="image/*" multiple hidden>
+            <div class="prog" id="prog" hidden><i id="prog-bar"></i></div>
+            <p class="hint" id="upload-hint" hidden></p>
+            <div class="shelf" id="shelf"></div>
+            <p class="hint">The image marked <em>Cover</em> is the one shown on the portfolio grid.</p>
+          </div>
+
+          <div class="row">
+            <div class="field check">
+              <input type="checkbox" id="f-featured">
+              <label for="f-featured">Feature on the homepage</label>
+            </div>
+            <div class="field check">
+              <input type="checkbox" id="f-published">
+              <label for="f-published">Published (visible on the live site)</label>
+            </div>
+          </div>
+
+          <div class="actions" style="margin-top:20px">
+            <button type="submit" class="solid" id="save-btn">Save project</button>
+            <button type="button" class="danger" id="delete-btn" hidden>Delete</button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- ---- enquiries tab ---- -->
+    <section id="tab-enquiries" hidden>
+      <div class="actions" style="margin-bottom:20px">
+        <button class="ghost sm" id="refresh-enq">Refresh</button>
+      </div>
+      <div id="enq-msg" class="msg" hidden></div>
+      <div id="enq-list"></div>
+      <p class="empty" id="enq-empty" hidden>No enquiries yet.</p>
+    </section>
+  </main>
+</div>
+
+<script type="module" src="js/admin.js"></script>
 </body>
 </html>

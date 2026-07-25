@@ -89,8 +89,10 @@ projects (collection)
        year:         number    2016
        client:       string   "Kalpataru Limited"
        description:  string   (long text)
-       coverImage:   string   (URL)
-       gallery:      array<string>  (image URLs)
+       coverImage:   string   (URL — mirrors the gallery entry marked as cover)
+       gallery:      array<{url, path}>  url = public download URL,
+                                         path = Storage path, needed to delete the
+                                         file when an image is removed
        featured:     boolean  (show on homepage)
        order:        number   (sort order)
        published:    boolean  (hide drafts from the public site)
