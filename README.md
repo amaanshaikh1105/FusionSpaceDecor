@@ -26,8 +26,8 @@ Fusion Space Decor/
     ├── index.html
     ├── about.html
     ├── services.html
-    ├── projects.html
-    ├── project.html
+    ├── portfolio.html
+    ├── sketches.html
     ├── contact.html
     ├── admin.html
     ├── logo.png            ← place the supplied logo file here

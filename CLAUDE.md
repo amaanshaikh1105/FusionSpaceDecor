@@ -67,8 +67,8 @@ The starter `index.html` in this repo already encodes this identity — match it
 | Home            | `/index.html`         | Hero, stats, services, featured projects, studio, clients, CTA |
 | About / Studio  | `/about.html`         | Attiulla Mirza's story, experience, credentials, approach      |
 | Services        | `/services.html`      | Interior · Civil Works · Design · Project Management (detail) |
-| Projects        | `/projects.html`      | Filterable gallery of all projects (by category)               |
-| Project detail  | `/project.html?id=…`  | One project: title, area, location, description, image gallery |
+| Portfolio       | `/portfolio.html`     | Gallery of all projects                                        |
+| Sketches        | `/sketches.html`      | Hand sketches / concept drawings                               |
 | Contact         | `/contact.html`       | Enquiry form + details + map                                    |
 | Admin           | `/admin.html`         | Login-protected content manager                                |
 

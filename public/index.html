@@ -1,33 +1,544 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Fusion Space Decor | Interior · Civil Works · Design</title>
-  <meta name="description" content="Fusion Space Decor — Mumbai interior design, civil works and design studio led by Attiulla Mirza, 21+ years' experience.">
-  <link rel="icon" href="/logo.png">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=Cormorant+Garamond:ital@1&family=Outfit:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/css/style.css">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Fusion Space Decor — Interior · Civil Works · Design | Mumbai</title>
+<meta name="description" content="Fusion Space Decor is a Mumbai design-and-build studio delivering complete interiors — design, civil works, services and finishing — from first site visit to final handover, under one accountable team." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Jost:wght@200;300;400;500&family=Marcellus&display=swap" rel="stylesheet" />
+<style>
+/* ============================================================
+   FUSION SPACE DECOR — shared design system
+   Finish: black · silver · copper   |   Split dark / light panels
+   Used by every page. Fonts loaded per-page in <head>.
+   ============================================================ */
+
+:root{
+  --black:#0C0C0D; --coal:#141416; --coal-2:#1C1C1F;
+  --bone:#F1EDE7; --bone-2:#E5E0D8; --ash:#D6D0C7;
+  --on-dark:#EFEDEA; --on-light:#1A1A1C;
+  --mute-dark:#98979A; --mute-light:#6B6862;
+  --copper:#B87333; --copper-lt:#DFA470; --copper-dp:#7C4A1F;
+  --silver:#B9BDC2; --silver-lt:#E4E7EA;
+  --copper-sheen:linear-gradient(135deg,#7C4A1F 0%,#B87333 30%,#F0C293 50%,#B87333 70%,#7C4A1F 100%);
+  --silver-sheen:linear-gradient(135deg,#7E848B 0%,#B9BDC2 30%,#F2F4F6 50%,#B9BDC2 70%,#7E848B 100%);
+  --line-d:rgba(184,115,51,.30); --line-d2:rgba(239,237,234,.10); --line-l:rgba(26,26,28,.14);
+  --f-disp:'Marcellus',serif; --f-ital:'Cormorant Garamond',serif; --f-body:'Jost',system-ui,sans-serif;
+  --maxw:1280px; --pad:clamp(20px,4.5vw,72px);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--f-body);font-weight:300;background:var(--black);color:var(--on-dark);line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+.wrap{max-width:var(--maxw);margin:0 auto}
+
+/* ---------- shared type / bits ---------- */
+.eyebrow{font-weight:400;font-size:.68rem;letter-spacing:.34em;text-transform:uppercase;display:inline-flex;align-items:center;gap:13px;color:var(--copper)}
+.eyebrow::before{content:"";width:30px;height:1px;background:var(--copper)}
+.eyebrow.on-light{color:var(--copper-dp)}
+.eyebrow.on-light::before{background:var(--copper-dp)}
+.eyebrow.center{justify-content:center}
+h1,h2,h3,h4{font-family:var(--f-disp);font-weight:400;line-height:1.14;letter-spacing:.005em}
+.ital{font-family:var(--f-ital);font-style:italic}
+.lede{max-width:56ch;font-size:1.04rem}
+.copper-text{background-image:var(--copper-sheen);-webkit-background-clip:text;background-clip:text;color:transparent}
+.silver-text{background-image:var(--silver-sheen);-webkit-background-clip:text;background-clip:text;color:transparent}
+
+.btn{display:inline-flex;align-items:center;gap:.6em;font-size:.82rem;font-weight:400;letter-spacing:.1em;text-transform:uppercase;padding:.95em 1.9em;border:1px solid var(--copper);color:var(--on-dark);background:transparent;cursor:pointer;transition:background .35s,color .35s}
+.btn:hover{background:var(--copper);color:#150B03}
+.btn--solid{background:linear-gradient(135deg,#A2632B,#C9853F 55%,#A2632B);border-color:#C9853F;color:#170C03}
+.btn--solid:hover{background:linear-gradient(135deg,#C9853F,#E0A46B 55%,#C9853F)}
+.btn--dark{border-color:var(--on-light);color:var(--on-light)}
+.btn--dark:hover{background:var(--on-light);color:var(--bone)}
+.arrow{display:inline-flex;align-items:center;gap:.7em;font-size:.76rem;letter-spacing:.16em;text-transform:uppercase;color:var(--copper)}
+.arrow i{width:32px;height:1px;background:currentColor;transition:width .3s}
+.arrow:hover i{width:50px}
+.arrow.dp{color:var(--copper-dp)}
+
+/* ---------- image placeholder frames ---------- */
+.frame{position:relative;overflow:hidden;background:
+   radial-gradient(90% 70% at 30% 20%,rgba(184,115,51,.18),transparent 62%),
+   repeating-linear-gradient(135deg,var(--coal) 0 22px,var(--coal-2) 22px 44px);
+   border:1px solid var(--line-d)}
+.frame.light{background:
+   radial-gradient(90% 70% at 30% 20%,rgba(184,115,51,.16),transparent 62%),
+   repeating-linear-gradient(135deg,var(--bone-2) 0 22px,var(--ash) 22px 44px);
+   border:1px solid var(--line-l)}
+.frame::before,.frame::after{content:"";position:absolute;width:15px;height:15px;border:1px solid var(--copper);opacity:.85}
+.frame::before{top:13px;left:13px;border-right:0;border-bottom:0}
+.frame::after{bottom:13px;right:13px;border-left:0;border-top:0}
+.frame .tag{position:absolute;top:14px;right:16px;font-size:.6rem;letter-spacing:.24em;text-transform:uppercase;color:var(--mute-dark)}
+.frame.light .tag{color:var(--mute-light)}
+.frame .cap{position:absolute;left:0;right:0;bottom:0;padding:16px 18px;background:linear-gradient(transparent,rgba(12,12,13,.86));font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--on-dark)}
+.r45{aspect-ratio:4/5}.r11{aspect-ratio:1/1}.r34{aspect-ratio:3/4}.r43{aspect-ratio:4/3}.r169{aspect-ratio:16/10}
+
+/* ---------- header ---------- */
+header{position:fixed;inset:0 0 auto 0;z-index:60;transition:background .4s,border-color .4s,padding .4s;border-bottom:1px solid transparent}
+header.scrolled{background:rgba(12,12,13,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--line-d)}
+.navbar{display:flex;align-items:center;justify-content:space-between;padding:22px var(--pad);transition:padding .4s}
+header.scrolled .navbar{padding:14px var(--pad)}
+.brand{display:flex;flex-direction:column;line-height:1}
+.brand .name{font-family:var(--f-disp);font-size:1.12rem;letter-spacing:.16em}
+.brand .sub{font-size:.54rem;letter-spacing:.4em;text-transform:uppercase;color:var(--mute-dark);margin-top:7px}
+nav.main{display:flex;align-items:center;gap:30px}
+nav.main a{font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;color:var(--mute-dark);transition:color .25s}
+nav.main a:hover,nav.main a.here{color:var(--on-dark)}
+nav.main .btn{padding:.62em 1.3em;color:var(--on-dark)}
+.menu-btn{display:none;background:none;border:0;cursor:pointer;flex-direction:column;gap:5px}
+.menu-btn span{width:25px;height:1.5px;background:var(--on-dark)}
+
+/* ---------- page hero (interior pages) ---------- */
+.pagehero{padding:clamp(130px,16vw,190px) var(--pad) clamp(50px,7vw,84px);position:relative;overflow:hidden;
+  background:radial-gradient(110% 90% at 82% 10%,rgba(184,115,51,.14),transparent 58%),var(--black);border-bottom:1px solid var(--line-d)}
+.pagehero::after{content:"";position:absolute;inset:0;opacity:.05;pointer-events:none;
+  background-image:linear-gradient(var(--copper) 1px,transparent 1px),linear-gradient(90deg,var(--copper) 1px,transparent 1px);
+  background-size:56px 56px;-webkit-mask-image:radial-gradient(60% 80% at 80% 40%,#000,transparent 72%);mask-image:radial-gradient(60% 80% at 80% 40%,#000,transparent 72%)}
+.pagehero .wrap{position:relative;z-index:2}
+.crumb{font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:var(--mute-dark);margin-bottom:20px}
+.crumb a:hover{color:var(--on-dark)}
+.crumb .sep{color:var(--copper);margin:0 10px}
+.pagehero h1{font-size:clamp(2.3rem,5vw,3.8rem);max-width:18ch}
+.pagehero .sub{font-family:var(--f-ital);font-style:italic;font-size:clamp(1.15rem,2.2vw,1.5rem);color:var(--copper-lt);margin-top:.5em;max-width:52ch}
+
+/* ---------- HERO split (home) ---------- */
+.hero{display:grid;grid-template-columns:1.02fr .98fr;min-height:100svh}
+.hero__dark{background:radial-gradient(110% 80% at 20% 15%,rgba(184,115,51,.14),transparent 60%),var(--black);display:flex;flex-direction:column;justify-content:center;padding:150px var(--pad) 64px;position:relative}
+.hero__dark::after{content:"";position:absolute;top:0;right:0;bottom:0;width:1px;background:linear-gradient(transparent,var(--copper),transparent)}
+.hero__dark h1{font-size:clamp(2.5rem,4.6vw,4.2rem);max-width:15ch;margin:.42em 0 .5em}
+.hero__dark h1 .ital{color:var(--copper-lt)}
+.hero__dark p{color:var(--mute-dark);max-width:44ch;font-size:1.06rem;margin-bottom:2.2em}
+.hero-cta{display:flex;gap:14px;flex-wrap:wrap}
+.hero__disc{margin-top:auto;padding-top:40px;display:flex;gap:26px;flex-wrap:wrap}
+.hero__disc span{font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:var(--mute-dark)}
+.hero__disc span::before{content:"—";color:var(--copper);margin-right:9px}
+.hero__light{background:var(--bone);color:var(--on-light);display:flex;flex-direction:column;justify-content:center;padding:150px var(--pad) 64px;position:relative}
+.hero__light .stack{position:relative;max-width:460px;margin:0 auto;width:100%}
+.hero__light .frame{aspect-ratio:4/5}
+.hero__light .float{position:absolute;left:-34px;bottom:-30px;width:52%;aspect-ratio:1/1;box-shadow:0 24px 50px rgba(0,0,0,.22)}
+.hero__light .cap{position:static;background:none;color:var(--mute-light);padding:0;margin-top:26px;font-size:.72rem;letter-spacing:.2em;text-transform:uppercase}
+
+/* ---------- marquee strip ---------- */
+.strip{background:var(--coal);border-block:1px solid var(--line-d);padding:18px 0;overflow:hidden}
+.strip .track{display:flex;gap:56px;width:max-content;white-space:nowrap;animation:slide 34s linear infinite}
+.strip span{font-family:var(--f-disp);font-size:1.02rem;letter-spacing:.14em;color:var(--mute-dark)}
+.strip span::after{content:"◆";margin-left:56px;color:var(--copper);font-size:.62rem;vertical-align:middle}
+@keyframes slide{to{transform:translateX(-50%)}}
+.strip:hover .track{animation-play-state:paused}
+
+/* ---------- capability grid (home) ---------- */
+.can{background:var(--bone);color:var(--on-light);padding:clamp(72px,9vw,128px) var(--pad)}
+.can__head{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:end;margin-bottom:clamp(40px,5vw,68px)}
+.can__head h2{font-size:clamp(1.9rem,3.8vw,3rem);margin-top:.4em;max-width:16ch}
+.can__head p{color:var(--mute-light);max-width:48ch}
+.cap-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line-l)}
+.cap{background:var(--bone);padding:38px 30px 34px;min-height:250px;display:flex;flex-direction:column;transition:background .4s}
+.cap:hover{background:var(--bone-2)}
+.cap .no{font-family:var(--f-disp);font-size:.82rem;letter-spacing:.2em;color:var(--copper-dp)}
+.cap h3{font-size:1.32rem;margin:auto 0 .45em}
+.cap p{color:var(--mute-light);font-size:.94rem}
+
+/* ---------- pinterest showcase ---------- */
+.showcase{background:var(--black);padding:clamp(72px,9vw,120px) 0;position:relative;overflow:hidden}
+.showcase .lead{padding:0 var(--pad);margin-bottom:clamp(34px,4vw,56px);display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:end}
+.showcase h2{font-size:clamp(1.9rem,3.8vw,3rem);margin-top:.4em}
+.showcase .lead p{color:var(--mute-dark);max-width:46ch}
+.pin{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;height:clamp(440px,58vw,660px);padding:0 var(--pad);
+  -webkit-mask-image:linear-gradient(180deg,transparent,#000 9%,#000 91%,transparent);mask-image:linear-gradient(180deg,transparent,#000 9%,#000 91%,transparent)}
+.pin__col{display:flex;flex-direction:column;gap:16px;animation:up 44s linear infinite;will-change:transform}
+.pin__col.b{animation:down 52s linear infinite}
+.pin__col.c{animation-duration:38s}
+.pin__col.d{animation:down 60s linear infinite}
+@keyframes up{from{transform:translateY(0)}to{transform:translateY(-50%)}}
+@keyframes down{from{transform:translateY(-50%)}to{transform:translateY(0)}}
+.showcase:hover .pin__col{animation-play-state:paused}
+.pin__col .frame{flex:none}
+
+/* ---------- split about band ---------- */
+.about{display:grid;grid-template-columns:1fr 1fr;min-height:520px}
+.about__l{background:var(--bone);color:var(--on-light);padding:clamp(60px,8vw,110px) var(--pad);display:flex;flex-direction:column;justify-content:center}
+.about__l h2{font-size:clamp(1.85rem,3.6vw,2.8rem);margin:.4em 0 .55em;max-width:15ch}
+.about__l p{color:var(--mute-light);max-width:46ch;margin-bottom:1.1em}
+.about__l .pull{font-family:var(--f-ital);font-style:italic;font-size:1.32rem;color:var(--on-light);border-left:2px solid var(--copper);padding-left:18px;margin:.4em 0 1.4em}
+.about__r{background:var(--coal);padding:clamp(60px,8vw,110px) var(--pad);display:flex;flex-direction:column;justify-content:center;gap:2px}
+.fact{border-top:1px solid var(--line-d2);padding:24px 0;display:grid;grid-template-columns:auto 1fr;gap:24px;align-items:baseline}
+.fact:last-child{border-bottom:1px solid var(--line-d2)}
+.fact .k{font-family:var(--f-disp);font-size:1.9rem}
+.fact .t{font-size:.95rem;color:var(--mute-dark)}
+.fact .t b{display:block;color:var(--on-dark);font-weight:400;font-size:1.02rem;font-family:var(--f-disp);margin-bottom:2px}
+
+/* ---------- process timeline ---------- */
+.process{background:var(--coal);border-block:1px solid var(--line-d);padding:clamp(72px,9vw,120px) var(--pad)}
+.process__head{text-align:center;margin-bottom:clamp(40px,5vw,66px)}
+.process__head h2{font-size:clamp(1.9rem,3.8vw,2.9rem);margin-top:.4em}
+.process__head p{color:var(--mute-dark);max-width:54ch;margin:.7em auto 0}
+.steps{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--line-d2);counter-reset:s}
+.step{background:var(--coal);padding:30px 22px;position:relative}
+.step .n{font-family:var(--f-disp);font-size:2.1rem;line-height:1}
+.step h3{font-size:1.12rem;margin:14px 0 10px}
+.step p{color:var(--mute-dark);font-size:.9rem}
+.step .ph{font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--copper);margin-top:14px;display:block}
+
+/* ---------- services page: full scope pillars ---------- */
+.scope{background:var(--black);padding:clamp(64px,8vw,110px) var(--pad)}
+.pillar{padding:34px 0;border-top:1px solid var(--line-d2);display:grid;grid-template-columns:.7fr 2.3fr;gap:clamp(20px,4vw,54px);align-items:start}
+.pillar:last-child{border-bottom:1px solid var(--line-d2)}
+.pillar .ph{position:sticky;top:120px}
+.pillar .ph .no{font-family:var(--f-disp);font-size:.8rem;letter-spacing:.2em;color:var(--copper)}
+.pillar .ph h3{font-size:clamp(1.3rem,2.4vw,1.8rem);margin-top:8px}
+.chips{display:flex;flex-wrap:wrap;gap:9px}
+.chip{font-size:.8rem;letter-spacing:.02em;color:var(--mute-dark);border:1px solid var(--line-d2);padding:.5em 1em;transition:border-color .3s,color .3s}
+.chip:hover{border-color:var(--copper);color:var(--on-dark)}
+
+/* ---------- designer profile (about page) ---------- */
+.profile{background:var(--black);padding:clamp(64px,8vw,110px) var(--pad)}
+.profile .wrap{display:grid;grid-template-columns:.82fr 1.18fr;gap:clamp(30px,6vw,84px);align-items:start}
+.portrait{position:relative}
+.portrait .frame{aspect-ratio:4/5}
+.portrait .plate{position:absolute;right:-22px;bottom:-22px;background:var(--copper-sheen);color:#1B0C02;padding:16px 22px;box-shadow:0 16px 36px rgba(0,0,0,.5)}
+.portrait .plate b{display:block;font-family:var(--f-disp);font-size:1.02rem}
+.portrait .plate span{font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;opacity:.78}
+.profile h2{font-size:clamp(1.9rem,3.8vw,2.7rem);margin:.3em 0 .25em}
+.profile .role{font-family:var(--f-ital);font-style:italic;font-size:1.2rem;color:var(--copper-lt);margin-bottom:1.1em}
+.profile p{color:var(--mute-dark);max-width:56ch;margin-bottom:1em}
+.profile p b{color:var(--on-dark);font-weight:400}
+.cv{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--line-d2);margin:30px 0}
+.cv div{background:var(--black);padding:16px 18px}
+.cv .k{font-family:var(--f-disp);font-size:1rem;color:var(--copper-lt)}
+.cv .v{font-size:.8rem;color:var(--mute-dark);margin-top:2px}
+
+/* experience timeline */
+.exp{background:var(--coal);border-top:1px solid var(--line-d);padding:clamp(64px,8vw,110px) var(--pad)}
+.exp__head{margin-bottom:clamp(34px,4vw,54px)}
+.exp__head h2{font-size:clamp(1.8rem,3.4vw,2.6rem);margin-top:.4em}
+.tl{max-width:820px}
+.tl .row{display:grid;grid-template-columns:auto 1fr;gap:28px;padding:26px 0;border-top:1px solid var(--line-d2)}
+.tl .row:last-child{border-bottom:1px solid var(--line-d2)}
+.tl .yr{font-family:var(--f-disp);color:var(--copper-lt);font-size:.95rem;white-space:nowrap}
+.tl .role{font-family:var(--f-disp);font-size:1.2rem}
+.tl .role + p{color:var(--mute-dark);margin-top:6px;font-size:.95rem;max-width:60ch}
+
+/* ---------- gallery grid (portfolio) ---------- */
+.gal{background:var(--black);padding:clamp(56px,7vw,96px) var(--pad)}
+.gal .filters{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:34px}
+.gal .filters .chip.on{border-color:var(--copper);color:var(--on-dark)}
+.grid-gal{display:grid;grid-template-columns:repeat(12,1fr);gap:16px}
+.grid-gal .frame{grid-column:span 4}
+.grid-gal .frame.big{grid-column:span 6}
+.grid-gal .frame.sq{grid-column:span 4;aspect-ratio:1/1}
+
+/* ---------- sketches grid (square boxes) ---------- */
+.sketch-sec{background:var(--bone-2);color:var(--on-light);padding:clamp(56px,7vw,100px) var(--pad)}
+.sketch-note{max-width:60ch;color:var(--mute-light);margin-bottom:clamp(30px,4vw,48px)}
+.sq-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:18px}
+.sq{position:relative;aspect-ratio:1/1;background:#FBFAF7;border:1px solid var(--line-l);overflow:hidden;
+  background-image:linear-gradient(rgba(30,60,90,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(30,60,90,.07) 1px,transparent 1px);background-size:24px 24px}
+.sq .rule{position:absolute;inset:12px;border:1px solid rgba(30,60,90,.20)}
+.sq .lbl{position:absolute;left:20px;top:20px;font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:#41586E}
+.sq .block{position:absolute;right:12px;bottom:12px;background:#fff;border:1px solid rgba(30,60,90,.28);padding:7px 11px;font-size:.56rem;letter-spacing:.14em;text-transform:uppercase;color:#41586E}
+.sq .block b{display:block;font-family:var(--f-disp);font-size:.72rem;letter-spacing:.08em;color:var(--on-light)}
+
+/* ---------- sectors ---------- */
+.sectors{background:var(--coal);border-block:1px solid var(--line-d);padding:clamp(56px,7vw,90px) var(--pad)}
+.sectors .head{text-align:center}
+.sectors .grid{display:grid;grid-template-columns:repeat(6,1fr);gap:1px;background:var(--line-d2);margin-top:34px}
+.sec{background:var(--coal);padding:26px 16px;text-align:center;transition:background .35s}
+.sec:hover{background:var(--coal-2)}
+.sec .i{font-size:.66rem;letter-spacing:.2em;color:var(--copper)}
+.sec .n{font-family:var(--f-disp);font-size:1rem;margin-top:9px}
+
+/* ---------- contact split ---------- */
+.contact{display:grid;grid-template-columns:1fr 1fr}
+.contact__l{background:var(--bone);color:var(--on-light);padding:clamp(64px,8vw,120px) var(--pad);display:flex;flex-direction:column;justify-content:center}
+.contact__l h2{font-size:clamp(2rem,4.2vw,3.1rem);margin:.35em 0 .35em}
+.contact__l h2 .ital{color:var(--copper-dp)}
+.contact__l p{color:var(--mute-light);max-width:42ch}
+.detail{margin-top:24px}
+.detail .k{font-size:.64rem;letter-spacing:.22em;text-transform:uppercase;color:var(--copper-dp)}
+.detail .v{font-size:1.08rem;margin-top:3px}
+.contact__r{background:var(--coal);padding:clamp(64px,8vw,120px) var(--pad);display:flex;flex-direction:column;justify-content:center}
+form.enq{display:flex;flex-direction:column;gap:14px;max-width:460px;width:100%}
+form.enq .fh{font-family:var(--f-disp);font-size:1.15rem;color:var(--copper-lt);margin-bottom:4px}
+form.enq input,form.enq select,form.enq textarea{background:var(--black);border:1px solid var(--line-d2);color:var(--on-dark);padding:14px 15px;font-family:var(--f-body);font-weight:300;font-size:.95rem}
+form.enq input:focus,form.enq select:focus,form.enq textarea:focus{outline:0;border-color:var(--copper)}
+form.enq textarea{resize:vertical;min-height:108px}
+
+/* ---------- footer ---------- */
+footer{background:var(--black);padding:58px var(--pad) 36px;border-top:1px solid var(--line-d)}
+footer .grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:36px;padding-bottom:32px;border-bottom:1px solid var(--line-d2)}
+footer .name{font-family:var(--f-disp);font-size:1.14rem;letter-spacing:.16em}
+footer .blurb{color:var(--mute-dark);font-size:.9rem;margin-top:13px;max-width:32ch}
+footer h4{font-size:.63rem;letter-spacing:.22em;text-transform:uppercase;color:var(--copper);margin-bottom:15px}
+footer a,footer .li{display:block;color:var(--mute-dark);font-size:.88rem;margin-bottom:9px}
+footer a:hover{color:var(--on-dark)}
+footer .fine{margin-top:26px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;font-size:.72rem;color:var(--mute-dark)}
+
+/* ---------- reveal ---------- */
+.fade{opacity:0;transform:translateY(22px);transition:opacity .9s ease,transform .9s ease}
+.fade.in{opacity:1;transform:none}
+
+/* ---------- responsive ---------- */
+@media(max-width:1080px){
+  .cap-grid{grid-template-columns:repeat(2,1fr)}
+  .steps{grid-template-columns:repeat(2,1fr)}
+  .sectors .grid{grid-template-columns:repeat(3,1fr)}
+  .pin{grid-template-columns:repeat(3,1fr)} .pin__col.d{display:none}
+  .grid-gal .frame,.grid-gal .frame.big,.grid-gal .frame.sq{grid-column:span 6}
+  footer .grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:860px){
+  .hero{grid-template-columns:1fr}
+  .hero__dark{padding-top:130px;min-height:auto}.hero__dark::after{display:none}
+  .hero__light{padding-top:60px}.hero__light .float{left:0}
+  .can__head,.showcase .lead,.about,.contact,.profile .wrap,.pillar{grid-template-columns:1fr}
+  .pillar .ph{position:static}
+  .cv{grid-template-columns:1fr}
+  .pin{grid-template-columns:repeat(2,1fr);height:420px} .pin__col.c{display:none}
+  .portrait .plate{right:14px}
+  .tl .row{grid-template-columns:1fr;gap:6px}
+  nav.main{position:fixed;inset:0 0 0 auto;width:min(80vw,320px);background:var(--coal);flex-direction:column;justify-content:center;align-items:flex-start;padding:40px;gap:24px;transform:translateX(100%);transition:transform .4s;border-left:1px solid var(--line-d);z-index:70}
+  nav.main.open{transform:none}
+  nav.main a{font-size:1.02rem}
+  .menu-btn{display:flex}
+}
+@media(max-width:560px){
+  .cap-grid,.steps{grid-template-columns:1fr}
+  .sectors .grid{grid-template-columns:repeat(2,1fr)}
+  footer .grid{grid-template-columns:1fr}
+}
+@media(prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+  .fade{opacity:1;transform:none}
+}
+
+</style>
 </head>
-<body>
-  <div id="site-header"></div>
+<body id="top">
 
-  <main>
-    <section class="hero">
-      <p class="eyebrow">Fusion Space Decor</p>
-      <h1>Interior &middot; Civil Works &middot; Design</h1>
-      <p class="accent">Spaces shaped by twenty-one years of craft.</p>
-    </section>
+<header id="header">
+  <div class="navbar">
+    <a class="brand" href="index.html">
+      <span class="name">FUSION <span class="copper-text">SPACE</span> DECOR</span>
+      <span class="sub">Interior · Civil Works · Design</span>
+    </a>
+    <button class="menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    <nav class="main" id="nav">
+      <a href="index.html" class="here">Home</a>
+      <a href="services.html">Services</a>
+      <a href="portfolio.html">Portfolio</a>
+      <a href="sketches.html">Drawings</a>
+      <a href="about.html">The Designer</a>
+      <a class="btn" href="contact.html">Enquire</a>
+    </nav>
+  </div>
+</header>
 
-    <!-- Sections to build next: stats, services, featured projects, studio, clients, CTA
-         (see CLAUDE.md §4 Home row). Content will come from Firestore from Build order step 3. -->
-  </main>
+<!-- HERO -->
+<section class="hero">
+  <div class="hero__dark">
+    <span class="eyebrow fade">Design &amp; Build Studio · Mumbai</span>
+    <h1 class="fade">We design spaces — and <span class="ital">build them ourselves.</span></h1>
+    <p class="fade">Fusion Space Decor delivers complete interiors under one roof: design, drawings, civil works, services and finishing — carried from the first site visit to the day you receive the keys.</p>
+    <div class="hero-cta fade">
+      <a class="btn btn--solid" href="services.html">What We Do</a>
+      <a class="btn" href="contact.html">Start a Project</a>
+    </div>
+    <div class="hero__disc fade"><span>Residential</span><span>Commercial</span><span>Retail</span><span>Institutional</span></div>
+  </div>
+  <div class="hero__light">
+    <div class="stack fade">
+      <div class="frame light r45"><span class="tag">Feature Image</span></div>
+      <div class="frame light float"><span class="tag">Detail</span></div>
+    </div>
+    <p class="cap fade">Concept · Drawings · Execution · Handover</p>
+  </div>
+</section>
 
-  <div id="site-footer"></div>
+<!-- STRIP -->
+<div class="strip" aria-hidden="true">
+  <div class="track">
+    <span>Interior Design</span><span>Civil Works</span><span>Working Drawings</span><span>Turnkey Execution</span><span>Project Management</span><span>Modular Joinery</span><span>MEP Services</span><span>Renovation</span>
+    <span>Interior Design</span><span>Civil Works</span><span>Working Drawings</span><span>Turnkey Execution</span><span>Project Management</span><span>Modular Joinery</span><span>MEP Services</span><span>Renovation</span>
+  </div>
+</div>
 
-  <script src="/js/layout.js"></script>
-  <script src="/js/main.js"></script>
+<!-- WHAT WE CAN DO -->
+<section class="can" id="capabilities">
+  <div class="wrap">
+    <div class="can__head">
+      <div class="fade">
+        <span class="eyebrow on-light">What we can do</span>
+        <h2>Everything between an empty shell and a finished space.</h2>
+      </div>
+      <p class="fade">Bring us in at any stage — a bare site, a half-finished plan, or a design that simply needs building properly. We hold responsibility for the entire chain of work.</p>
+    </div>
+    <div class="cap-grid">
+      <div class="cap fade"><span class="no">01</span><h3>Design &amp; Planning</h3><p>Space planning, layouts, material palettes, 3D visualisation and detailed working drawings before anything is built.</p></div>
+      <div class="cap fade"><span class="no">02</span><h3>Civil &amp; Masonry</h3><p>Demolition, new walls, partitions, plastering, levelling and waterproofing — the groundwork the finish depends on.</p></div>
+      <div class="cap fade"><span class="no">03</span><h3>MEP Services</h3><p>Complete plumbing, electrical and HVAC — conduiting, wiring, piping, ducting and testing, coordinated as one.</p></div>
+      <div class="cap fade"><span class="no">04</span><h3>Finishes &amp; Ceilings</h3><p>False ceilings, flooring, paint, texture, wallpaper, cladding and panelling, executed to a fine standard.</p></div>
+      <div class="cap fade"><span class="no">05</span><h3>Carpentry &amp; Joinery</h3><p>Modular kitchens, wardrobes, units and bespoke joinery, with glass, metal and door hardware.</p></div>
+      <div class="cap fade"><span class="no">06</span><h3>Styling &amp; Handover</h3><p>Lighting, soft furnishing, décor, quality checks, snagging and a documented handover with warranty.</p></div>
+    </div>
+    <div style="margin-top:38px" class="fade"><a class="arrow dp" href="services.html">See the full scope of work <i></i></a></div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="process" id="process">
+  <div class="wrap">
+    <div class="process__head fade">
+      <span class="eyebrow center">How we work</span>
+      <h2>One team, five clear stages.</h2>
+      <p>From the first conversation to the final walkthrough, every project moves through the same disciplined sequence — so nothing is improvised on site.</p>
+    </div>
+    <div class="steps">
+      <div class="step fade"><div class="n copper-text">01</div><h3>Consult &amp; Measure</h3><p>Site visit, measurement, requirement gathering and an honest budget conversation.</p><span class="ph">Stage One</span></div>
+      <div class="step fade"><div class="n copper-text">02</div><h3>Design &amp; Draw</h3><p>Layouts, material selection, 3D views, working drawings and a transparent BOQ.</p><span class="ph">Stage Two</span></div>
+      <div class="step fade"><div class="n copper-text">03</div><h3>Civil &amp; Services</h3><p>Demolition, masonry, plumbing, electrical and HVAC — the structure and systems.</p><span class="ph">Stage Three</span></div>
+      <div class="step fade"><div class="n copper-text">04</div><h3>Build &amp; Finish</h3><p>Ceilings, flooring, finishes, carpentry, glass, metal and lighting.</p><span class="ph">Stage Four</span></div>
+      <div class="step fade"><div class="n copper-text">05</div><h3>Style &amp; Handover</h3><p>Furnishing, décor, quality checks, snagging, cleaning and documented handover.</p><span class="ph">Stage Five</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- SHOWCASE -->
+<section class="showcase" id="work">
+  <div class="lead">
+    <div class="fade"><span class="eyebrow">Selected imagery</span><h2>A look at the work.</h2></div>
+    <p class="fade">Interiors delivered across homes, workplaces, retail and institutional spaces — drawn, detailed and executed by our principal over two decades in the field.</p>
+  </div>
+  <div class="pin" aria-hidden="true">
+    <div class="pin__col a"><div class="frame r45"></div><div class="frame r11"></div><div class="frame r34"></div><div class="frame r43"></div><div class="frame r45"></div><div class="frame r11"></div><div class="frame r34"></div><div class="frame r43"></div></div>
+    <div class="pin__col b"><div class="frame r34"></div><div class="frame r43"></div><div class="frame r45"></div><div class="frame r11"></div><div class="frame r34"></div><div class="frame r43"></div><div class="frame r45"></div><div class="frame r11"></div></div>
+    <div class="pin__col c"><div class="frame r11"></div><div class="frame r45"></div><div class="frame r43"></div><div class="frame r34"></div><div class="frame r11"></div><div class="frame r45"></div><div class="frame r43"></div><div class="frame r34"></div></div>
+    <div class="pin__col d"><div class="frame r43"></div><div class="frame r34"></div><div class="frame r11"></div><div class="frame r45"></div><div class="frame r43"></div><div class="frame r34"></div><div class="frame r11"></div><div class="frame r45"></div></div>
+  </div>
+  <div style="padding:clamp(30px,4vw,52px) var(--pad) 0;text-align:center"><a class="arrow fade" href="portfolio.html">View full portfolio <i></i></a></div>
+</section>
+
+<!-- COMPANY DESCRIPTION -->
+<section class="about" id="studio">
+  <div class="about__l">
+    <span class="eyebrow on-light fade">The studio</span>
+    <h2 class="fade">A new studio, built on two decades of site experience.</h2>
+    <p class="fade">Fusion Space Decor was founded with one purpose: to close the gap between a well-considered design and a well-built space. On too many projects, quality is lost somewhere between the designer's drawing and the contractor's execution.</p>
+    <p class="pull fade">We draw it, we cost it, and we build it — so accountability never passes to someone else.</p>
+    <p class="fade">The studio is young; the hands directing it are not. Every commission is led personally by our principal, applying the same detailing discipline he has brought to homes, workplaces, retail and large-format interiors across his career.</p>
+    <a class="arrow dp fade" href="about.html">Meet the designer <i></i></a>
+  </div>
+  <div class="about__r">
+    <div class="fact fade"><span class="k copper-text">01</span><span class="t"><b>One point of accountability</b>Design, drawings and execution sit with one team, under one contract.</span></div>
+    <div class="fact fade"><span class="k copper-text">02</span><span class="t"><b>Drawing-led delivery</b>Every element is detailed before it is built, so site decisions are never guesswork.</span></div>
+    <div class="fact fade"><span class="k copper-text">03</span><span class="t"><b>Budgets that hold</b>Transparent BOQs and costing reviewed at every stage, with no late surprises.</span></div>
+    <div class="fact fade"><span class="k copper-text">04</span><span class="t"><b>Principal on site</b>The person who designs your space supervises the people building it.</span></div>
+  </div>
+</section>
+
+<!-- DESIGNER (teaser on home) -->
+<section class="profile" id="designer">
+  <div class="wrap">
+    <div class="portrait fade">
+      <div class="frame r45"><span class="tag">Formal Portrait</span></div>
+      <div class="plate"><b>21+ Years</b><span>On site &amp; at the drawing board</span></div>
+    </div>
+    <div class="fade">
+      <span class="eyebrow">The designer</span>
+      <h2>Attiulla Mirza</h2>
+      <p class="role">Principal Designer · Project Manager · Site Executor</p>
+      <p>For over two decades, Attiulla has worked across every seat on a project — interior designer, clerk of works, project manager and site executor. That range is deliberate: he can detail a joinery section in the morning and explain, on site that afternoon, exactly why the carpenter's version won't hold.</p>
+      <p>His experience spans <b>residences, show homes, workplaces, retail, hospitality, healthcare and institutional interiors</b> — from compact apartments to large-format fit-outs. Fusion Space Decor is where that experience now works for clients directly, with no layers in between.</p>
+      <div class="cv">
+        <div><div class="k">Advance Diploma</div><div class="v">Interior Design &amp; Decoration, L.S. Raheja School of Architecture</div></div>
+        <div><div class="k">Gold Medallist</div><div class="v">Awarded on graduation, 2004</div></div>
+        <div><div class="k">AutoCAD · SketchUp</div><div class="v">Drawings, detailing &amp; visualisation</div></div>
+        <div><div class="k">B.Com</div><div class="v">Commercial &amp; costing grounding</div></div>
+      </div>
+      <a class="arrow" href="about.html">Full profile &amp; experience <i></i></a>
+    </div>
+  </div>
+</section>
+
+<!-- SECTORS -->
+<section class="sectors">
+  <div class="head"><span class="eyebrow center">Sectors we work in</span></div>
+  <div class="wrap grid">
+    <div class="sec fade"><div class="i">◆</div><div class="n">Residential</div></div>
+    <div class="sec fade"><div class="i">◆</div><div class="n">Commercial</div></div>
+    <div class="sec fade"><div class="i">◆</div><div class="n">Retail</div></div>
+    <div class="sec fade"><div class="i">◆</div><div class="n">Hospitality</div></div>
+    <div class="sec fade"><div class="i">◆</div><div class="n">Institutional</div></div>
+    <div class="sec fade"><div class="i">◆</div><div class="n">Healthcare</div></div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="contact__l">
+    <span class="eyebrow on-light fade">Start a project</span>
+    <h2 class="fade">Tell us what you're <span class="ital">planning.</span></h2>
+    <p class="fade">A home, an office, a store or a full floor — share the space and the intent, and we'll come back with an approach and an honest budget range.</p>
+    <div class="detail fade"><div class="k">Email</div><div class="v">mirzaatti@hotmail.com</div></div>
+    <div class="detail fade"><div class="k">Phone</div><div class="v">+91 98691 57571</div></div>
+    <div class="detail fade"><div class="k">Studio</div><div class="v">Mumbai, Maharashtra</div></div>
+  </div>
+  <div class="contact__r">
+    <form class="enq fade" onsubmit="event.preventDefault(); alert('Thank you for your enquiry — we will be in touch shortly.');">
+      <div class="fh">Project enquiry</div>
+      <input type="text" placeholder="Your name" required />
+      <input type="email" placeholder="Email address" required />
+      <input type="tel" placeholder="Phone number" />
+      <select><option>Project type</option><option>Residential</option><option>Commercial</option><option>Retail</option><option>Hospitality</option><option>Institutional</option><option>Other</option></select>
+      <textarea placeholder="Location, approximate area, and what you have in mind" required></textarea>
+      <button class="btn btn--solid" type="submit" style="align-self:flex-start">Send enquiry</button>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <div class="grid">
+    <div><span class="name">FUSION <span class="copper-text">SPACE</span> DECOR</span><p class="blurb">A Mumbai design-and-build studio — interiors, civil works and turnkey execution, led personally by its principal designer.</p></div>
+    <div><h4>Explore</h4><a href="index.html">Home</a><a href="services.html">Services</a><a href="portfolio.html">Portfolio</a><a href="sketches.html">Drawings</a></div>
+    <div><h4>Studio</h4><a href="about.html">The Designer</a><a href="services.html">Capabilities</a><a href="contact.html">Enquire</a></div>
+    <div><h4>Contact</h4><span class="li">mirzaatti@hotmail.com</span><span class="li">+91 98691 57571</span><span class="li">Mumbai, Maharashtra</span></div>
+  </div>
+  <div class="fine"><span>© <span id="yr"></span> Fusion Space Decor. All rights reserved.</span><span>Interior · Civil Works · Design</span></div>
+</footer>
+
+<script>
+// Fusion Space Decor — shared behaviour for all pages
+document.addEventListener('DOMContentLoaded', function () {
+  var yr = document.getElementById('yr');
+  if (yr) yr.textContent = new Date().getFullYear();
+
+  var header = document.getElementById('header');
+  if (header) {
+    addEventListener('scroll', function () {
+      header.classList.toggle('scrolled', scrollY > 40);
+    }, { passive: true });
+  }
+
+  var nav = document.getElementById('nav'), mb = document.getElementById('menuBtn');
+  if (nav && mb) {
+    mb.addEventListener('click', function () {
+      var open = nav.classList.toggle('open');
+      mb.setAttribute('aria-expanded', open);
+    });
+    nav.querySelectorAll('a').forEach(function (a) {
+      a.addEventListener('click', function () { nav.classList.remove('open'); });
+    });
+  }
+
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.fade').forEach(function (f) { io.observe(f); });
+});
+
+</script>
 </body>
 </html>
