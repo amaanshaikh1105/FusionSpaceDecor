@@ -1,21 +1,19 @@
 // Firebase project connection — shared by every page that needs data.
-// The values below are safe to be public: Firebase web config is not a secret,
-// access control is enforced by firestore.rules / storage.rules instead.
-//
-// Fill this in once you've created the Firebase project (see docs/SETUP_GUIDE.md, Part 3).
+// These values are safe to be public: the Firebase web config identifies the project,
+// it does not grant access. Access control lives in firestore.rules / storage.rules.
 
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getFirestore } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-import { getAuth } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-import { getStorage } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
+import { getFirestore } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js";
+import { getAuth } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-auth.js";
+import { getStorage } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-storage.js";
 
 const firebaseConfig = {
-  apiKey: "REPLACE_ME",
-  authDomain: "REPLACE_ME.firebaseapp.com",
-  projectId: "REPLACE_ME",
-  storageBucket: "REPLACE_ME.appspot.com",
-  messagingSenderId: "REPLACE_ME",
-  appId: "REPLACE_ME"
+  apiKey: "AIzaSyAn3GArgo1CcIsTlOK-jUkDbpwsHJa-hsQ",
+  authDomain: "fusion-space-decor.firebaseapp.com",
+  projectId: "fusion-space-decor",
+  storageBucket: "fusion-space-decor.firebasestorage.app",
+  messagingSenderId: "406742739386",
+  appId: "1:406742739386:web:2184c78b20cd5e23209583"
 };
 
 const app = initializeApp(firebaseConfig);
